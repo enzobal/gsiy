@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Lista de Usuarios{% endblock %}
+
+{% block contenido %}
+<div class="container">
+    <h1>Lista de Usuarios</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>Username</th>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>Discipline</th>
+                <th>Profile Image</th>
+                <th>Birthday</th>
+                <th>Is Active</th>
+                <th>Is Staff</th>
+                <th>Is Superuser</th>
+                <th>Email</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for usuario in usuarios %}
+            <tr>
+                <td>{{ usuario.username }}</td>
+                <td>{{ usuario.first_name }}</td>
+                <td>{{ usuario.last_name }}</td>
+                <td>
+                    {% if usuario.userprofile.discipline %}
+                        {{ usuario.userprofile.discipline }}
+                    {% else %}
+                        No Discipline
+                    {% endif %}
+                </td>
+                <td>
+                    {% if usuario.userprofile.profile_image %}
+                        <img src="{{ usuario.userprofile.profile_image.url }}" alt="Profile Image" style="max-width: 50px;">
+                    {% else %}
+                        No Image
+                    {% endif %}
+                </td>
+                <td>
+                    {% if usuario.userprofile.birth_date %}
+                        {{ usuario.userprofile.birth_date|date:"d/m/Y" }}
+                    {% else %}
+                        No Birth Date
+                    {% endif %}
+                </td>
+                <td>{{ usuario.is_active }}</td>
+                <td>{{ usuario.is_staff }}</td>
+                <td>{{ usuario.is_superuser }}</td>
+                <td>{{ usuario.email }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

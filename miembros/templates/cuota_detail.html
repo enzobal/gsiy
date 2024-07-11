@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block head %}
+    <title>Detalle de Cuotas</title>
+{% endblock %}
+
+{% block contenido %}
+    <h1>Detalle de Cuotas</h1>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Usuario</th>
+                <th>Fecha de inicio</th>
+                <th>Fecha de vencimiento</th>
+                <th>Estado</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for cuota in cuotas %}
+            <tr>
+                <td>{{ cuota.usuario.username }}</td>
+                <td>{{ cuota.fecha_inicio }}</td>
+                <td>{{ cuota.fecha_vencimiento }}</td>
+                <td>
+                    {% if cuota.pagada %}
+                        Pagado
+                    {% else %}
+                        Sin pagar
+                    {% endif %}
+                </td>
+                <td>
+                    {% if user.is_superuser %}
+                        <a href="{% url 'cuota_edit' cuota.pk %}" class="btn btn-primary btn-sm">Editar</a>
+                        <a href="{% url 'cuota_pagar' cuota.pk %}" class="btn btn-success btn-sm">Pagar</a>
+                    {% endif %}
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% if user.is_superuser %}
+    <form action="{% url 'cuota_create' %}" method="get">
+        <button type="submit" class="btn btn-info">Cargar Cuota</button>
+    </form>
+    {% endif %}
+{% endblock %}

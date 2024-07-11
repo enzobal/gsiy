@@ -1,0 +1,376 @@
+
+
+
+
+
+
+
+
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block contenido %}
+
+
+<!-- Resto del contenido del home -->
+<div class="productos">
+{% for producto in productos %}
+    <!-- Renderiza tu producto aquí -->
+{% endfor %}
+</div>
+
+    <!-- Blog Start -->
+    <!-- Blog Start -->
+    <div class="container pt-5">
+        <div class="d-flex flex-column text-center mb-5">
+            <h4 class="text-primary font-weight-bold">Nuestro blog</h4>
+            <h4 class="display-4 font-weight-bold">Últimos artículos del blog</h4>
+        </div>
+        {% if user.is_authenticated and user.is_staff %}
+            <a href="{% url 'blog_post_create' %}" class="btn btn-primary mb-4">Agregar nueva noticia</a>
+        {% endif %}
+        <div class="row">
+            {% for post in posts %}
+            <div class="col-lg-6 mb-5 blog-item">
+                {% if post.image %}
+                    <img class="img-fluid mb-4" src="{{ post.image.url }}" alt="{{ post.title }}" width="700" height="400">
+                {% endif %}
+                {% if post.video %}
+                    <video class="img-fluid mb-4" width="700" height="400" controls>
+                        <source src="{{ post.video.url }}" type="video/mp4">
+                        Tu navegador no soporta el tag de video.
+                    </video>
+                {% endif %}
+                <div class="d-flex align-items-center mb-4">
+                    <div class="d-flex flex-column align-items-center justify-content-center rounded-circle bg-primary text-white" style="width: 80px; height: 80px;">
+                        <small>{{ post.created_at|date:"d" }}</small>
+                        <strong class="text-uppercase m-0 text-white">{{ post.created_at|date:"M" }}</strong>
+                        <small>{{ post.created_at|date:"Y" }}</small>
+                    </div>
+                    <div class="pl-3">
+                        <h3 class="font-weight-bold">{{ post.title }}</h3>
+                        <div class="d-flex">
+                            <small class="mr-2 text-muted"><i class="fa fa-user"></i> {{ post.author }}</small>
+                        </div>
+                    </div>
+                </div>
+                <p>{{ post.content|truncatewords:50 }}</p>
+                <a class="btn btn-outline-primary mt-2 px-3" href="">Leer más <i class="fa fa-angle-right"></i></a>
+                {% if user.is_authenticated and user.is_staff %}
+                    <a href="{% url 'blog_post_edit' post.pk %}" class="btn btn-secondary mt-2 px-3">Editar</a>
+                    <a href="{% url 'blog_post_delete' post.pk %}" class="btn btn-danger mt-2 px-3">Eliminar</a>
+                {% endif %}
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+    <!-- Blog End -->
+    
+
+<!-- ver esto.. es nuevo -->
+ <!-- Features Start -->
+ <div class="container-fluid my-5">
+    <div class="row">
+        <div class="col-lg-4 p-0">
+            <div class="d-flex align-items-center bg-secondary text-white px-5" style="min-height: 300px;">
+                <i class="flaticon-training display-3 text-primary mr-3"></i>
+                <div class="">
+                    <h2 class="text-white mb-3">Progresión</h2>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed eu suscipit orci velit id libero
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-4 p-0">
+            <div class="d-flex align-items-center bg-primary text-white px-5" style="min-height: 300px;">
+                <i class="flaticon-weightlifting display-3 text-secondary mr-3"></i>
+                <div class="">
+                    <h2 class="text-white mb-3">Ejercicio</h2>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed eu suscipit orci velit id libero
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-4 p-0">
+            <div class="d-flex align-items-center bg-secondary text-white px-5" style="min-height: 300px;">
+                <i class="flaticon-treadmill display-3 text-primary mr-3"></i>
+                <div class="">
+                    <h2 class="text-white mb-3">Nutrición</h2>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed eu suscipit orci velit id libero
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Features End -->
+
+
+
+     <section class="feature" id="feature">
+        <div class="container">
+            <div class="row">
+
+                <div class="d-flex flex-column justify-content-center ml-lg-auto mr-lg-5 col-lg-5 col-md-6 col-12">
+                    <h2 class="mb-3 text-white" data-aos="fade-up">Eres Nuevo En Crossfit?</h2>
+
+                    <h6 class="mb-4 text-white" data-aos="fade-up">Si estas en duda, vení a una clase sin cargo</h6>
+
+                    <p data-aos="fade-up" data-aos-delay="200">Gymso is free HTML template by <a rel="nofollow" href="https://www.tooplate.com" target="_parent">Tooplate</a> for your commercial website. Bootstrap v4.2.1 Layout. Feel free to use it.</p>
+
+                    <a href="#" class="btn custom-btn bg-color mt-3" data-aos="fade-up" data-aos-delay="300" data-toggle="modal" data-target="#membershipForm">Become a member today</a>
+                </div>
+
+                <div class="mr-lg-auto mt-3 col-lg-4 col-md-6 col-12">
+                     <div class="about-working-hours">
+                          <div>
+
+                                <h2 class="mb-4 text-white" data-aos="fade-up" data-aos-delay="500">Atencion Diaria</h2>
+
+                               <strong class="d-block" data-aos="fade-up" data-aos-delay="600">domingos : Cerrado</strong>
+
+                               <strong class="mt-3 d-block" data-aos="fade-up" data-aos-delay="700">Lunes - Viernes</strong>
+
+                                <p data-aos="fade-up" data-aos-delay="800">8:00 AM - 10:00 PM</p>
+
+                                <strong class="mt-3 d-block" data-aos="fade-up" data-aos-delay="700">Sábados</strong>
+
+                                <p data-aos="fade-up" data-aos-delay="800">18:00 hs - 21:00 hs</p>
+                               </div>
+                          </div>
+                     </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+
+     <!-- ABOUT -->
+     <section class="about section" id="about">
+               <div class="container">
+                    <div class="row">
+
+                            <div class="mt-lg-5 mb-lg-0 mb-4 col-lg-5 col-md-10 mx-auto col-12">
+                                <h2 class="mb-4" data-aos="fade-up" data-aos-delay="300">Hola, Somos Siyan</h2>
+
+                                <p data-aos="fade-up" data-aos-delay="400">You are NOT allowed to redistribute this HTML template downloadable ZIP file on any template collection site. You are allowed to use this template for your personal or business websites.</p>
+
+                                <p data-aos="fade-up" data-aos-delay="500">If you have any question regarding <a rel="nofollow" href="https://www.tooplate.com/view/2119-gymso-fitness" target="_parent">Gymso Fitness HTML template</a>, you can <a rel="nofollow" href="https://www.tooplate.com/contact" target="_parent">contact Tooplate</a> immediately. Thank you.</p>
+
+                            </div>
+
+                            <div class="ml-lg-auto col-lg-3 col-md-6 col-12" data-aos="fade-up" data-aos-delay="700">
+                                <div class="team-thumb">
+                                    <img src="{% static 'miembros/img/coach2.jpg' %}" class="img-fluid" alt="Trainer">
+
+                                    <div class="team-info d-flex flex-column">
+
+                                        <h3>Fabricio</h3>
+                                        <span>Crossfit Instructor</span>
+
+                                        <ul class="social-icon mt-3">
+                                            <li><a href="#" class="fa fa-twitter"></a></li>
+                                            <li><a href="#" class="fa fa-instagram"></a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="mr-lg-auto mt-5 mt-lg-0 mt-md-0 col-lg-3 col-md-6 col-12" data-aos="fade-up" data-aos-delay="800">
+                                <div class="team-thumb">
+                                    <img src="{% static 'miembros/img/coach1.jpg' %}" class="img-fluid" alt="Trainer">
+
+                                    <div class="team-info d-flex flex-column">
+
+                                        <h3>juan gabriel</h3>
+                                        <span>Body trainer</span>
+
+                                        <ul class="social-icon mt-3">
+                                            <li><a href="#" class="fa fa-instagram"></a></li>
+                                            <li><a href="#" class="fa fa-facebook"></a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+
+                    </div>
+               </div>
+     </section>
+
+
+     <!-- CLASS -->
+     <section class="class section" id="class">
+               <div class="container">
+                    <div class="row">
+
+                            <div class="col-lg-12 col-12 text-center mb-5">
+                                <h6 data-aos="fade-up">"Saiyan Box: Donde los límites no existen."</h6>
+
+                                <h2 data-aos="fade-up" data-aos-delay="200">Conocé Nuestras Disciplinas</h2>
+                             </div>
+
+                            <div class="col-lg-4 col-md-6 col-12" data-aos="fade-up" data-aos-delay="400">
+                                <div class="class-thumb">
+                                    <img src="{% static 'miembros/img/funcional.jpg' %}" class="img-fluid" alt="Class">
+
+                                    <div class="class-info">
+                                        <h3 class="mb-1">funcional kids</h3>
+
+                                        <span><strong>Trained by</strong> - Bella</span>
+
+                                        <span class="class-price">$50</span>
+
+                                        <p class="mt-3">Lorem ipsum dolor sit amet, consectetur adipiscing</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="mt-5 mt-lg-0 mt-md-0 col-lg-4 col-md-6 col-12" data-aos="fade-up" data-aos-delay="500">
+                                <div class="class-thumb">
+                                    <img src="{% static 'miembros/img/entre_funcional.jpg' %}" class="img-fluid" alt="Class">
+
+                                    <div class="class-info">
+                                        <h3 class="mb-1">Personalizado</h3>
+
+                                        <span><strong>Trained by</strong> - Mary</span>
+
+                                        <span class="class-price">$66</span>
+
+                                        <p class="mt-3">Lorem ipsum dolor sit amet, consectetur adipiscing</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="mt-5 mt-lg-0 col-lg-4 col-md-6 col-12" data-aos="fade-up" data-aos-delay="600">
+                                <div class="class-thumb">
+                                    <img src="{% static 'miembros/img/entr_pers_f.jpg' %}" class="img-fluid" alt="Class">
+
+                                    <div class="class-info">
+                                        <h3 class="mb-1">Crossfits</h3>
+
+                                        <span><strong>Trained by</strong> - Cathe</span>
+
+                                        <span class="class-price">$75</span>
+
+                                        <p class="mt-3">Lorem ipsum dolor sit amet, consectetur adipiscing</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                    </div>
+               </div>
+     </section>
+
+
+     <!-- SCHEDULE -->
+    <section class="schedule section" id="schedule">
+            <div class="container">
+                    <div class="row">
+
+                            <div class="col-lg-12 col-12 text-center">
+                                <h6 data-aos="fade-up">our weekly GYM schedules</h6>
+
+                                <h2 class="text-white" data-aos="fade-up" data-aos-delay="200">Workout Timetable</h2>
+                            </div>
+
+                            <div class="col-lg-12 py-5 col-md-12 col-12">
+                                <table class="table table-bordered table-responsive schedule-table" data-aos="fade-up" data-aos-delay="300">
+
+                                    <thead class="thead-light">
+                                        <th><i class="fa fa-calendar"></i></th>
+                                        <th>Mon</th>
+                                        <th>Tue</th>
+                                        <th>Wed</th>
+                                        <th>Thu</th>
+                                        <th>Fri</th>
+                                        <th>Sat</th>
+                                    </thead>
+
+                                    <tbody>
+                                        <tr>
+                                            <td><small>7:00 am</small></td>
+                                            <td>
+                                                <strong>Cardio</strong>
+                                                <span>7:00 am - 9:00 am</span>
+                                            </td>
+                                            <td>
+                                                <strong>Power Fitness</strong>
+                                                <span>7:00 am - 9:00 am</span>
+                                            </td>
+                                            <td></td>
+                                            <td></td>
+                                            <td>
+                                                <strong>Yoga Section</strong>
+                                                <span>7:00 am - 9:00 am</span>
+                                            </td>
+                                        </tr>
+
+                                        <tr>
+                                            <td><small>9:00 am</small></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td>
+                                                <strong>Boxing</strong>
+                                                <span>8:00 am - 9:00 am</span>
+                                            </td>
+                                            <td>
+                                                <strong>Areobic</strong>
+                                                <span>8:00 am - 9:00 am</span>
+                                            </td>
+                                            <td></td>
+                                            <td>
+                                                <strong>Cardio</strong>
+                                                <span>8:00 am - 9:00 am</span>
+                                            </td>
+                                         </tr>
+
+                                         <tr>
+                                            <td><small>11:00 am</small></td>
+                                            <td></td>
+                                            <td>
+                                                <strong>Boxing</strong>
+                                                <span>11:00 am - 2:00 pm</span>
+                                            </td>
+                                            <td>
+                                                <strong>Areobic</strong>
+                                                <span>11:30 am - 3:30 pm</span>
+                                            </td>
+                                            <td></td>
+                                            <td>
+                                                <strong>Body work</strong>
+                                                <span>11:50 am - 5:20 pm</span>
+                                            </td>
+                                         </tr>
+
+                                         <tr>
+                                            <td><small>2:00 pm</small></td>
+                                            <td>
+                                                <strong>Boxing</strong>
+                                                <span>2:00 pm - 4:00 pm</span>
+                                            </td>
+                                            <td>
+                                                <strong>Power lifting</strong>
+                                                <span>3:00 pm - 6:00 pm</span>
+                                            </td>
+                                            <td></td>
+                                            <td>
+                                                <strong>Cardio</strong>
+                                                <span>6:00 pm - 9:00 pm</span>
+                                            </td>
+                                            <td></td>
+                                            <td>
+                                                <strong>Crossfit</strong>
+                                                <span>5:00 pm - 7:00 pm</span>
+                                            </td>
+                                         </tr>
+                                     </tbody>
+                                 </table>
+                             </div>
+
+                    </div>
+               </div>
+     </section>
+
+    {% endblock %}

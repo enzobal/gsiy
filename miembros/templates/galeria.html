@@ -1,0 +1,161 @@
+
+{% extends 'base.html' %}
+{% load static %}
+
+{% block js %}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/bxslider/4.2.15/jquery.bxslider.min.js"></script>
+<script>
+    $(document).ready(function(){
+        $('.bxslider').bxSlider({
+            mode: 'fade', // Modo de desplazamiento: horizontal
+            captions: true, // Muestra los textos de las imágenes
+            auto: true, // Inicia la reproducción automática
+            pause: 2000 // Duración de cada diapositiva en milisegundos (opcional)
+        });
+        
+        // Inicializa fancybox para imágenes de productos
+        $('[data-fancybox="gallery"]').fancybox({
+            buttons: [
+                "zoom",
+                "share",
+                "slideShow",
+                "fullScreen",
+                "download",
+                "thumbs",
+                "close"
+            ]
+        });
+    });
+</script>
+{% endblock %}
+
+{% block css %}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css">
+<style>
+    /* Aquí colocarás tu CSS personalizado si es necesario */
+    .galeria-section {
+        padding: 4rem 2rem;
+        background-color: var(--about-bg-color);
+        text-align: center;
+    }
+
+    .galeria-title, .productos-title {
+        font-size: var(--h2-font-size);
+        font-weight: var(--font-weight-bold);
+        margin-bottom: 2rem;
+        color: var(--dark-color);
+    }
+
+    .galeria-container, .producto-container {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 1rem;
+    }
+
+    .galeria-item, .producto-item img {
+        width: 100%;
+        height: auto;
+        border-radius: var(--border-radius-small);
+        transition: transform var(--transition-duration);
+        box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    }
+
+    .galeria-item:hover, .producto-item:hover {
+        transform: scale(1.05);
+    }
+
+    .producto-item {
+        width: calc(33.333% - 1rem); /* Ajustado para 3 columnas en pantallas grandes */
+        padding: 1rem;
+        border: 1px solid #ccc;
+        border-radius: var(--border-radius-small);
+        box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        transition: transform var(--transition-duration);
+    }
+
+    .producto-detalles {
+        padding: 0.5rem;
+        text-align: left;
+    }
+
+    .producto-detalles h5, .producto-detalles h2, .producto-detalles h3 {
+        margin: 0.5rem 0;
+    }
+
+    .producto-detalles h3 {
+        color: var(--dark-color);
+    }
+
+    /* Media queries para ajustar el tamaño de las imágenes en pantallas más pequeñas */
+    @media (max-width: 992px) {
+        .producto-item {
+            width: calc(50% - 1rem); /* 2 columnas en pantallas medianas */
+        }
+    }
+
+    @media (max-width: 767px) {
+        .producto-item {
+            width: calc(100% - 1rem); /* 1 columna en pantallas pequeñas */
+        }
+    }
+</style>
+{% endblock %}
+
+{% block contenido %}
+<section class="galeria-section">
+    <h2 class="galeria-title">Galería de la tienda</h2>
+    <div class="galeria-container">
+        <div class="col-lg-4 col-md-6 mb-4">
+            <a data-fancybox="gallery" href="{% static 'miembros/img/tienda/tienda1.jpg' %}">
+                <img src="{% static 'miembros/img/tienda/tienda1.jpg' %}" class="galeria-item img-fluid">
+            </a>
+        </div>
+        <div class="col-lg-4 col-md-6 mb-4">
+            <a data-fancybox="gallery" href="{% static 'miembros/img/tienda/tienda2.jpeg' %}">
+                <img src="{% static 'miembros/img/tienda/tienda2.jpeg' %}" class="galeria-item img-fluid">
+            </a>
+        </div>
+        <div class="col-lg-4 col-md-6 mb-4">
+            <a data-fancybox="gallery" href="{% static 'miembros/img/tienda/tienda3.jpg' %}">
+                <img src="{% static 'miembros/img/tienda/tienda3.jpg' %}" class="galeria-item img-fluid">
+            </a>
+        </div>
+        <div class="col-lg-4 col-md-6 mb-4">
+            <a data-fancybox="gallery" href="{% static 'miembros/img/tienda/tienda4.jpg' %}">
+                <img src="{% static 'miembros/img/tienda/tienda4.jpg' %}" class="galeria-item img-fluid">
+            </a>
+        </div>
+        <div class="col-lg-4 col-md-6 mb-4">
+            <a data-fancybox="gallery" href="{% static 'miembros/img/tienda/tienda5.jpg' %}">
+                <img src="{% static 'miembros/img/tienda/tienda5.jpg' %}" class="galeria-item img-fluid">
+            </a>
+        </div>
+        <!-- Agrega más divs según sea necesario para más imágenes -->
+    </div>
+</section>
+
+<section class="productos-section">
+    <h2 class="productos-title">Productos</h2>
+    <div class="producto-container">
+        {% for producto in productos %}
+        <div class="producto-item">
+            <div class="producto-contenedor">
+                {% if producto.imagen %}
+                <a data-fancybox="gallery" href="{{ producto.imagen.url }}">
+                    <img src="{{ producto.imagen.url }}" alt="{{ producto.nombre }}" class="img-fluid">
+                </a>
+                {% endif %}
+                <div class="producto-detalles">
+                    <h5>{{ producto.marca | capfirst }}</h5>
+                    <h2>{{ producto.nombre | title }}</h2>
+                    <h3>${{ producto.precio }}</h3>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</section>
+{% endblock %}

@@ -1,0 +1,105 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block contenido %}
+<h2>Contactanos</h2>
+<form action="" method="post" id="formulario_contacto">
+
+    {% csrf_token %}
+
+    {{ form }}
+
+    <br>
+
+    <button type="reset">Limpiar</button>
+    <button type="submit" id="guardar">Guardar</button>
+    <button type="submit" id="btnEnviar"  > Enviar</button>
+</form>
+
+<table id="tablacontactos">
+
+</table>
+
+    <!-- About Start -->
+    <div class="container py-5 " id="sobre_nosotros" style="background: rgb(224, 137, 54);">
+        <div class="row align-items-center">
+            <div class="col-lg-6">
+                <img class="img-fluid mb-4 mb-lg-0" src="{% static 'miembros/img/fondo3.jpg' %}" alt="Image" width="700" height="900">
+            </div>
+            <div class="col-lg-6">
+                <h2 class="display-4 font-weight-bold mb-4">nuestra historia en Saiyan</h2>
+                <p>Labore vero lorem eos sed aliquy ipsum aliquy sed. Vero dolore dolore takima ipsum lorem rebum</p>
+                <div class="row py-2">
+                    <div class="col-sm-6">
+                        <i class="flaticon-barbell display-2 text-primary"></i>
+                        <h4 class="font-weight-bold">Centro GYM Certificado</h4>
+                        <p>Ipsum sanctu dolor ipsum dolore sit et kasd duo</p>
+                    </div>
+                    <div class="col-sm-6">
+                        <i class="flaticon-medal display-2 text-primary"></i>
+                        <h4 class="font-weight-bold">Ganador de premios</h4>
+                        <p>Ipsum sanctu dolor ipsum dolore sit et kasd duo</p>
+                    </div>
+                </div>
+                <a href="" class="btn btn-lg px-4 btn-outline-primary">Aprende más</a>
+            </div>
+        </div>
+    </div>
+    <!-- About End -->
+
+
+
+
+
+
+    <!-- Blog Start -->
+    <!-- <div class="container pt-5">
+        <div class="d-flex flex-column text-center mb-5">
+            <h4 class="text-primary font-weight-bold">Nuestro blog</h4>
+            <h4 class="display-4 font-weight-bold">Último artículo del blog</h4>
+        </div>
+        <div class="row">
+            <div class="col-lg-6 mb-5 blog-item">
+                <img class="img-fluid mb-4" src="{% static 'miembros/img/coach2.jpg' %}" alt="Image" width="700" height="400">
+                <div class="d-flex align-items-center mb-4">
+                    <div class="d-flex flex-column align-items-center justify-content-center rounded-circle bg-primary text-white" style="width: 80px; height: 80px;">
+                        <small>01</small>
+                        <strong class="text-uppercase m-0 text-white">Enero</strong>
+                        <small>2045</small>
+                    </div>
+                    <div class="pl-3">
+                        <h3 class="font-weight-bold">Lorem ipsum dolor sit amet</h3>
+                        <div class="d-flex">
+                            <small class="mr-2 text-muted"><i class="fa fa-user"></i> Admin</small>
+                            <small class="mr-2 text-muted"><i class="fa fa-folder"></i> Web Design</small>
+                            <small class="mr-2 text-muted"><i class="fa fa-comments"></i> 15 Comments</small>
+                        </div>
+                    </div>
+                </div>
+                <p>Eos kasd et sea labore. Et sed amet magna elitr amet, stet et amet erat nonumy labore lorem ut eos, sed ut at tempor diam no. Kasd sit ea amet lorem et sea, ipsum sed dolor dolores sed dolore eirmod vero dolor sed kasd accusam</p>
+                <a class="btn btn-outline-primary mt-2 px-3" href="">Leer más<i class="fa fa-angle-right"></i></a>
+            </div>
+            <div class="col-lg-6 mb-5 blog-item">
+                <img class="img-fluid mb-4" src="{% static 'miembros/img/coach2.jpg' %}" alt="Image" width="700" height="400">
+                <div class="d-flex align-items-center mb-4">
+                    <div class="d-flex flex-column align-items-center justify-content-center rounded-circle bg-primary text-white" style="width: 80px; height: 80px;">
+                        <small>01</small>
+                        <strong class="text-uppercase m-0 text-white">Enero</strong>
+                        <small>2045</small>
+                    </div>
+                    <div class="pl-3">
+                        <h3 class="font-weight-bold">Lorem ipsum dolor sit amet</h3>
+                        <div class="d-flex">
+                            <small class="mr-2 text-muted"><i class="fa fa-user"></i> Admin</small>
+                            <small class="mr-2 text-muted"><i class="fa fa-folder"></i> Diseño web</small>
+                            <small class="mr-2 text-muted"><i class="fa fa-comments"></i> 15 Comentarios</small>
+                        </div>
+                    </div>
+                </div>
+                <p>Eos kasd et sea labore. Et sed amet magna elitr amet, stet et amet erat nonumy labore lorem ut eos, sed ut at tempor diam no. Kasd sit ea amet lorem et sea, ipsum sed dolor dolores sed dolore eirmod vero dolor sed kasd accusam</p>
+                <a class="btn btn-outline-primary mt-2 px-3" href="">Leer más <i class="fa fa-angle-right"></i></a>
+            </div>
+        </div>
+    </div> -->
+    <!-- Blog End -->
+
+{% endblock %}

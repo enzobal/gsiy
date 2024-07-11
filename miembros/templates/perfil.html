@@ -1,0 +1,61 @@
+
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block css %}
+<style>
+    #user-profile-image {
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+        margin-left: 5px;
+    }
+    .profile-image {
+        width: 550px; /* Ajusta este valor según el tamaño deseado */
+        height: 550px; /* Ajusta este valor según el tamaño deseado */
+        
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+    }
+    .profile-image-container {
+        text-align: center;
+    }
+</style>
+{% endblock %}
+
+{% block contenido %}
+
+<main>
+    <h1>Perfil de {{ user_profile.user.username }}</h1>
+    <p><strong>Nombre de usuario:</strong> {{ user_profile.user.username }}</p>
+    <p><strong>Nombre:</strong> {{ user_profile.user.first_name }}</p>
+    <p><strong>Apellido:</strong> {{ user_profile.user.last_name }}</p>
+
+    <p><strong>Email:</strong> {{ user_profile.user.email }}</p>
+    <p><strong>Fecha de nacimiento:</strong> {{ user_profile.birth_date }}</p>
+    <p><strong>Localidad:</strong> {{ user_profile.localidad }}</p>
+    <p><strong>Descripción:</strong> {{ user_profile.bio }}</p>
+
+    {% if usuario_actividades %}
+        <p><strong>Actividades:</strong></p>
+        <ul>
+            {% for ua in usuario_actividades %}
+                <li>{{ ua.actividad.nombre }} - {{ ua.horario.dia_semana }} {{ ua.horario.hora_inicio }} - {{ ua.horario.hora_fin }}</li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>No hay actividades seleccionadas.</p>
+    {% endif %}
+
+    {% if user_profile.profile_image %}
+        <div class="profile-image-container">
+            <p><strong>Imagen de perfil:</strong></p>
+            <img src="{{ user_profile.profile_image.url }}" alt="Profile Image" class="profile-image">
+        </div>
+    {% else %}
+        <p>No hay imagen de perfil disponible.</p>
+    {% endif %}
+</main>
+{% endblock %}

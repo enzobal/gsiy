@@ -1,0 +1,85 @@
+
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block contenido %}
+
+<style>
+    .video-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 20px; /* Espacio entre las columnas */
+       
+    }
+
+    .video-item {
+        width: 100%;
+    }
+
+    @media (max-width: 992px) {
+        .video-grid {
+            grid-template-columns: repeat(2, 1fr);
+        }
+    }
+
+    @media (max-width: 768px) {
+        .video-grid {
+            grid-template-columns: repeat(1, 1fr);
+        }
+    }
+</style>
+<div class="">
+    <!-- videos de insta, fijos -->
+    <section class="video-grid">
+        <div class="video-item">
+            <blockquote class="instagram-media" data-instgrm-permalink="https://www.instagram.com/p/C5QINQEO_5B/" data-instgrm-version="14">
+            <a href="https://www.instagram.com/p/C5QINQEO_5B/" target="_blank"></a>
+            </blockquote>
+            <script async src="//www.instagram.com/embed.js"></script>
+        </div>
+        <!-- Repite este patrón para los siguientes videos -->
+
+        <div class="video-item">
+            <blockquote class="instagram-media" data-instgrm-permalink="https://www.instagram.com/reel/C5QCilHuZpV/" data-instgrm-version="14">
+            <a href="https://www.instagram.com/reel/C5QCilHuZpV/" target="_blank"></a>
+            </blockquote>
+            <script async src="//www.instagram.com/embed.js"></script>
+        </div>
+        <!-- Repite este patrón para los siguientes videos -->
+
+        <div class="video-item">
+            <blockquote class="instagram-media" data-instgrm-permalink="https://www.instagram.com/reel/C5P_L4XuQvi/" data-instgrm-version="14">
+            <a href="https://www.instagram.com/reel/C5P_L4XuQvi/" target="_blank"></a>
+            </blockquote>
+            <script async src="//www.instagram.com/embed.js"></script>
+        </div>
+        <!-- Repite este patrón para los siguientes videos -->
+
+        <div class="video-item">
+            <blockquote class="instagram-media" data-instgrm-permalink="https://www.instagram.com/reel/C5Oqc6TROH6/" data-instgrm-version="14">
+            <a href="https://www.instagram.com/reel/C5Oqc6TROH6/" target="_blank"></a>
+            </blockquote>
+            <script async src="//www.instagram.com/embed.js"></script>
+        </div>
+        <!-- Repite este patrón para los siguientes videos -->
+
+        <div class="video-item">
+            <blockquote class="instagram-media" data-instgrm-permalink="https://www.instagram.com/reel/C4CeSuqO3La/" data-instgrm-version="14">
+            <a href="https://www.instagram.com/reel/C4CeSuqO3La/" target="_blank"></a>
+            </blockquote>
+            <script async src="//www.instagram.com/embed.js"></script>
+        </div>
+        <!-- Repite este patrón para los siguientes videos -->
+
+        <div class="video-item">
+            <blockquote class="instagram-media" data-instgrm-permalink="https://www.youtube.com/embed/tgbNymZ7vqY" data-instgrm-version="14">
+            <a href="https://www.youtube.com/embed/tgbNymZ7vqY" target="_blank"></a>
+            </blockquote>
+            <script async src="//www.instagram.com/embed.js"></script>
+        </div>
+        <!-- Repite este patrón para los siguientes videos -->
+    </section>
+    <!-- fin videos de insta, fijos -->
+</div>
+{% endblock %}

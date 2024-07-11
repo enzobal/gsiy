@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block contenido %}
+<body>
+
+    
+    <div class="container">
+        <div class="card">
+            <div class="card-body">
+                <h2>Registro de Usuario</h2>
+                <hr>
+                <form action="" method="post">
+                    {% csrf_token %}
+                    {{ formContac.as_p }}
+                    <input type="submit" value="Registrar" class="btn btn-primary btn-block mt-3">
+                    <div class="d-flex justify-content-between mt-3">
+                        <a href="{% url 'login' %}" class="link-home btn btn-success">Ir a Iniciar Sesión</a>
+                        <a href="{% url 'home' %}" class="link-home btn btn-success">Ir a Inicio</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <!-- Bootstrap JS and dependencies -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+{% endblock %}
+

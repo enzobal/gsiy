@@ -1,0 +1,18 @@
+<!-- cuota_create.html -->
+<!-- cuota_create.html -->
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Cargar Cuota</title>
+</head>
+<body>
+    <h1>Cargar Cuota</h1>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Cargar Cuota</button>
+    </form>
+    <a href="{% url 'cuota_admin' %}">Volver a la administración de cuotas</a>
+</body>
+</html>
+

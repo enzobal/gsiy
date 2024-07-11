@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% block contenido %}
+<h2>Cumpleaños</h2>
+
+{% if users_with_birthday_today %}
+    <h3>Hoy es el cumpleaños de:</h3>
+    <ul>
+        {% for user in users_with_birthday_today %}
+            <li>{{ user.get_full_name }} ({{ user.userprofile.birth_date|date:"d M" }})</li>
+        {% endfor %}
+    </ul>
+{% else %}
+    <p>No hay cumpleaños hoy.</p>
+{% endif %}
+
+<h3>Próximos cumpleaños:</h3>
+<ul>
+    {% for user in upcoming_birthdays %}
+        <li>{{ user.get_full_name }} - {{ user.userprofile.birth_date|date:"d M" }}</li>
+    {% endfor %}
+</ul>
+
+{% endblock %}

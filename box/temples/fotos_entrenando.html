@@ -1,0 +1,26 @@
+<!-- box/temples/box/fotos_entrenando.html -->
+
+{<!-- box/temples/box/fotos_entrenando.html -->
+
+{% extends 'base.html' %}
+{% load static %}
+
+{% block contenido %}
+<div class="container">
+    <h1>Fotos Entrenando</h1>
+    <div class="row">
+        {% for foto in fotos %}
+        <div class="col-md-4">
+            <div class="card mb-4 shadow-sm">
+                <img src="{{ foto.imagen.url }}" class="card-img-top" alt="{{ foto.titulo }}">
+                <div class="card-body">
+                    <h5 class="card-title">{{ foto.titulo }}</h5>
+                    <p class="card-text">{{ foto.descripcion }}</p>
+                    <p class="card-text"><small class="text-muted">Subida el: {{ foto.fecha_subida|date:"d M Y" }}</small></p>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

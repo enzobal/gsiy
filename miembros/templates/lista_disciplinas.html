@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Lista de Disciplinas</title>
+</head>
+<body>
+    <h1>Lista de Disciplinas</h1>
+    <a href="{% url 'agregar_disciplina' %}">Agregar Disciplina</a>
+    <ul>
+        {% for disciplina in disciplinas %}
+        <li>
+            <h3>{{ disciplina.nombre }}</h3>
+            <p><strong>Entrenador:</strong> {{ disciplina.entrenador }}</p>
+            <p><strong>Precio:</strong> ${{ disciplina.precio }}</p>
+            <p><strong>Descripción:</strong> {{ disciplina.descripcion }}</p>
+            <img src="{{ disciplina.imagen.url }}" alt="{{ disciplina.nombre }}" style="width: 200px; height: auto;">
+        </li>
+        {% endfor %}
+    </ul>
+</body>
+</html>

@@ -1,0 +1,63 @@
+
+
+
+
+
+
+
+
+
+
+
+
+     {% extends 'bache.html' %}
+     {% load static %}
+     
+     {% block css %}
+     <link rel="stylesheet" href="https://cdn.jsdelivr.net/bxslider/4.2.15/jquery.bxslider.min.css">
+     {% endblock %}
+     
+     {% block cont %}
+     <div class="slider">
+         <ul class="bxslider">
+             <li><img src="{% static 'miembros/img/banner/banner1.png' %}" alt=""></li>
+             <li><img src="{% static 'miembros/img/banner/banner2.png' %}" alt=""></li>
+             <li><img src="{% static 'miembros/img/banner/banner3.png' %}" alt=""></li>
+         </ul>
+     </div>
+     {% load humanize %}
+     <div class="productos">
+         {% for producto in productos %}
+         <div class="producto">
+             <div class="contenedor_producto">
+                 <!-- Verifica si el producto tiene una imagen -->
+                 {% if producto.imagen %}
+                 <img src="{{ producto.imagen.url }}" alt="{{ producto.nombre }}">
+                 {% endif %}
+                 <div class="detalles">
+                     <h5>{{ producto.marca | capfirst }}</h5>
+                     <h2>{{ producto.nombre | title}}</h2>
+                     <h3>${{ producto.precio | intcomma }}</h3>
+                 </div>
+             </div>
+         </div>
+         {% endfor %}
+     </div>
+     
+     {% block js %}
+     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+     <script src="https://cdn.jsdelivr.net/bxslider/4.2.15/jquery.bxslider.min.js"></script>
+     <script>
+         $(document).ready(function(){
+             $('.bxslider').bxSlider({
+                 mode: 'fade', // Modo de desplazamiento: horizontal
+                 captions: true, // Muestra los textos de las imágenes
+                 auto: true, // Inicia la reproducción automática
+                 pause: 2000 // Duración de cada diapositiva en milisegundos (opcional)
+             });
+         });
+     </script>
+     {% endblock %}
+     {% endblock %}
+     
+     

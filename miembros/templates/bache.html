@@ -1,0 +1,186 @@
+
+
+{% load static %}
+<!doctype html>
+<html lang="es">
+<head>
+    <style>
+        /* Estilos para la imagen de perfil en el menú */
+        #user-profile-image {
+            width: 60px; /* Tamaño deseado */
+            height: 60px; /* Tamaño deseado */
+            border-radius: 50%; /* Para que la imagen sea circular */
+            margin-left: 5px; /* Margen a la izquierda para separar del nombre de usuario */
+        }
+
+        /* Estilos para el menú desplegable */
+        .dropdown {
+            position: relative;
+            display: inline-block;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #f9f9f9;
+            min-width: 160px;
+            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+            z-index: 1;
+        }
+
+        .dropdown-content a {
+            color: black;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+        }
+
+        .dropdown-content a:hover {
+            background-color: #f1f1f1;
+        }
+
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+
+        /* Estilo para mantener el menú desplegable a la izquierda */
+        nav ul {
+            display: flex;
+            align-items: center;
+            list-style: none;
+            padding: 0;
+        }
+
+        nav ul li {
+            margin-right: 15px;
+        }
+
+        /* Estilo para el ícono del menú */
+        .menu-icon {
+            width: 20px;
+            height: 20px;
+            vertical-align: middle; /* Alinea el ícono con el texto */
+            margin-right: 5px; /* Espacio entre el ícono y el texto */
+        }
+    </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Tecnomarket</title>
+    <link rel="stylesheet" href="{% static 'miembros/css/estilos.css' %}">
+    {% block css %}{% endblock %}
+</head>
+<body>
+
+
+<header id="header">
+    <img src="{% static 'miembros/img/menuiconwhite.png' %}" alt="menu" class="menu" id="menu">
+    <div class="contenedor_logo">
+        <img src="{% static 'miembros/img/tecnomarketpngicono.png' %}" alt="logo" class="logo">
+    </div>
+    <div>
+        <nav id="nav">
+            <ul>
+                        {% if user.is_authenticated %}
+                        <li class="nav-item dropdown">
+                            <a href="#" class="nav-link smoothScroll">
+                                <img src="{% static 'miembros/img/menuiconwhite.png' %}" alt="Menu Icon" class="menu-icon">
+                                Opciones del Usuario
+                            </a>
+                            <div class="dropdown-content">
+                                <a href="{% url 'update_profile' %}">Modificar perfil</a>
+                                <a href="#">Cambiar foto</a>
+                                <a href="{% url 'seleccionar_actividad' %}">Elegir horarios</a>
+                                <a href="{% url 'cuota_view' %}">Cuota</a>
+                                <a href="{% url 'cuota_admin' %}">Cuota admin (modificar)</a>
+                                {% for cuota in cuotas %}
+                                <p>Cuota ID: {{ cuota.pk }}</p>
+                                <a href="{% url 'cuota_edit' pk=cuota.pk %}">Editar cuota</a>
+                                {% endfor %}
+                            </div>
+                {% endif %}
+                <li><a href="{% url 'home' %}">Inicio</a>
+                    
+                </li>
+                <li>
+                    <a href="{% url 'contacto' %}">Contácto</a>
+                </li>
+                <li>
+                    <a href="{% url 'galeria' %}">Galería</a>
+                </li>
+                {% if user.is_authenticated %}
+                <li>
+                    <a href="#" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Cerrar sesión</a>
+                    <form id="logout-form" action="{% url 'logout' %}" method="post" style="display: none;">
+                        {% csrf_token %}
+                        <button type="submit">Logout</button>
+                    </form>
+                </li>
+                <li>
+                    <a href="{% url 'perfil' %}">Perfil del Usuario</a>
+                </li>
+                {% if user.is_superuser %}
+                <li>
+                    <a href="{% url 'lista_usuarios' %}">Lista de Usuarios</a>
+                </li>
+                {% endif %}
+                <li>
+                    <a href="#">Usuario: {{ user.username }}</a>
+                    {% if user.userprofile.profile_image %}
+                    <img src="{{ user.userprofile.profile_image.url }}" alt="Profile Image" id="user-profile-image">
+                    {% else %}
+                    <img src="{% static 'img/default-profile.png' %}" alt="Imagen de perfil predeterminada" id="user-profile-image">
+                    {% endif %}
+                </li>
+                {% else %}
+                <li>
+                    <a href="{% url 'login' %}">Iniciar sesión</a>
+                </li>
+                <li>
+                    <a href="{% url 'registro' %}">Registrarse</a>
+                </li>
+                {% endif %}
+                <li>
+                    <a href="{% url 'admin:index' %}" class="admin-button">Admin</a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+</header>
+<div id="contenido">
+    {% block cont %}
+    {% endblock %}
+</div>
+<footer>
+    <div class="marcas">
+        <img src="{% static 'miembros/img/footer/apple.png' %}" alt="apple" style="width: 30px;">
+        <img src="{% static 'miembros/img/footer/lenovo.png' %}" alt="lenovo">
+        <img src="{% static 'miembros/img/footer/microsoft.png' %}" alt="microsoft">
+        <img src="{% static 'miembros/img/footer/samsung.png' %}" alt="samsung">
+        <img src="{% static 'miembros/img/footer/xiaomi.png' %}" alt="xiaomi">
+    </div>
+    <div class="logo_footer">
+        <img src="{% static 'miembros/img/tecnomarketpngicono.png' %}" alt="logo">
+    </div>
+</footer>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="{% static 'miembros/js/menu.js' %}"></script>
+{% block js %}{% endblock %}
+</body>
+
+
+
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+

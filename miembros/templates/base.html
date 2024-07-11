@@ -1,0 +1,821 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<style>
+/* circulo que lleva al cumple de los usuarios*/
+.birthday-circle {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 140px;
+            height: 140px;
+            background-color: #f39c12;
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }
+
+/* fin del circulo que lleva al cumple */
+
+    /* Estilos para la imagen de perfil en el menú */
+    #user-profile-image {
+        width: 50px; /* Tamaño deseado */
+        height: 50px; /* Tamaño deseado */
+        border-radius: 50%; /* Para que la imagen sea circular */
+        margin-left: 15px; /* Margen a la izquierda para separar del nombre de usuario */
+    }
+
+    /* Estilos para el menú desplegable */
+    .dropdown {
+        position: relative;
+        display: inline-block;
+    }
+
+    .dropdown-content {
+        display: none;
+        position: absolute;
+        background-color: #f9f9f9;
+        min-width: 160px;
+        box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+        z-index: 1;
+    }
+
+    .dropdown-content a {
+        color: black;
+        padding: 12px 16px;
+        text-decoration: none;
+        display: block;
+    }
+
+    .dropdown-content a:hover {
+        background-color: #f1f1f1;
+    }
+
+    .dropdown:hover .dropdown-content {
+        display: block;
+    }
+
+    /* Estilo para mantener el menú desplegable a la izquierda */
+    nav ul {
+        display: flex;
+        align-items: center;
+        list-style: none;
+        padding: 0;
+    }
+
+    nav ul li {
+        margin-right: 10px;
+    }
+
+    /* Estilo para el ícono del menú */
+    .menu-icon {
+    width: 55px;
+    height: 55px;
+    vertical-align: middle; /* Alinea el ícono con el texto */
+    margin-right: 5px; /* Espacio entre el ícono y el texto */
+    border-radius: 50%; /* Hace que la imagen sea redonda */
+    object-fit: cover; /* Asegura que la imagen se ajuste bien dentro del contenedor redondo */
+}
+
+
+    /* Estilos adicionales para mover el texto "Saiyan box" a la izquierda y agregar el logo */
+    .navbar-brand {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start; /* Alinea los elementos al principio (izquierda) */
+        margin-left: 0; /* Quita cualquier margen adicional */
+    }
+
+    .navbar-brand img {
+        margin-top: 7px; /* Espacio entre el texto y la imagen del logo */
+    }
+
+        /* Estilos para el icono flotante */
+        #floating-icon {
+            position: fixed;
+            left: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            background-color: #fff;
+            padding: 10px;
+            border-radius: 50%;
+            box-shadow: 0 0 10px rgba(0,0,0,0.2);
+            z-index: 1000;
+            cursor: pointer;
+            text-align: center;
+        }
+
+        #floating-icon img {
+            width: 30px;
+            height: 30px;
+        }
+
+        #floating-icon span {
+            display: block;
+            font-size: 12px;
+            color: #000;
+        }
+
+/* del imc */
+.container-fluid.bmi {
+    padding: 2rem 0;
+}
+
+.text-primary {
+    color: var(--primary-color) !important;
+}
+
+.display-4 {
+    font-size: 2.5rem; /* Ajusta según tu diseño */
+}
+
+.bg-secondary {
+    background-color: #6c757d !important; /* Color de fondo secundario */
+}
+
+.bg-dark {
+    background-color: #343a40 !important; /* Color de fondo oscuro */
+}
+
+.text-white {
+    color: #fff !important;
+}
+
+.border-light {
+    border-color: #f8f9fa !important;
+}
+
+.bg-imc {
+    background-image: url('static/miembros/img/barra.jpg'); /* Cambia 'ruta/a/tu/imagen.jpg' a la ruta real de tu imagen */
+    background-size: cover;
+    background-position: center;
+    height: 100%;
+    padding: 3rem;
+}
+
+.text-container {
+    background-color: rgba(0, 0, 0, 0.5); /* Añade un fondo oscuro semi-transparente para mejor legibilidad del texto */
+    padding: 2rem;
+    border-radius: 0.5rem;
+}
+
+/* Asegúrate de que estas clases estén presentes en tu CSS */
+@media (min-width: 768px) {
+    .d-md-block {
+        display: block !important;
+    }
+    .pr-md-3 {
+        padding-right: 1rem !important;
+    }
+}
+
+.form-control-lg {
+    font-size: 1.25rem;
+    padding: .5rem 1rem;
+}
+
+.custom-select-lg {
+    height: calc(1.5em + 1rem + 2px);
+    padding: .5rem 1rem;
+    font-size: 1.25rem;
+    line-height: 1.5;
+    border-radius: .3rem;
+}
+
+.btn-lg {
+    font-size: 1.25rem;
+    padding: .5rem 1rem;
+    border-radius: .3rem;
+}
+
+.align-items-stretch {
+    align-items: stretch;
+}
+
+.row.px-3.align-items-stretch > .col-md-6 {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+/* fin del imc */
+
+
+.navbar-nav .dropdown-menu {
+    display: none;
+    position: absolute;
+    background-color: #343a40;
+    border-radius: 0;
+}
+
+.navbar-nav .dropdown:hover .dropdown-menu {
+    display: block;
+    margin-top: 0;
+    padding-top: 0;
+}
+
+.dropdown-menu .dropdown-item {
+    color: #fff;
+}
+
+.dropdown-menu .dropdown-item:hover {
+    background-color: #495057;
+}
+
+
+</style>
+<title>Web Saiyan box</title>
+
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=Edge">
+<meta name="description" content="">
+<meta name="keywords" content="">
+<meta name="author" content="">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+<link rel="stylesheet" href="{% static 'miembros/css/bootstrap.min.css' %}">
+<link rel="stylesheet" href="{% static 'miembros/css/font-awesome.min.css' %}">
+<link rel="stylesheet" href="{% static 'miembros/css/aos.css' %}">
+
+<!-- MAIN CSS -->
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+<link rel="stylesheet" href="{% static 'miembros/css/tooplate-gymso-style.css' %}">
+
+
+{% block css %}{% endblock %}
+</head>
+
+<body data-spy="scroll" data-target="#navbarNav" data-offset="50">
+    <div class="birthday-circle" onclick="location.href='{% url 'birthdays_view' %}'">
+        <span>  ......Hoy es el cumpleaños de</span>
+    </div>
+<!-- fin de circulo de cumple -->
+<!-- MENU BAR -->
+<nav class="navbar navbar-expand-lg fixed-top">
+    <div class="container">
+        <a class="navbar-brand" href="{% url 'home' %}">
+            Saiyan box
+            <img src="{% static 'miembros/img/logo_saiyan.ico' %}" alt="Menu Icon" class="menu-icon">
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a href="{% url 'home' %}" class="nav-link smoothScroll">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a href="{% url 'contacto' %}" class="nav-link smoothScroll">Contactanos</a>
+                </li>
+                <!-- Menú desplegable Galería -->
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Galería
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="{% url 'videos_insta' %}">Videos de Instagram</a>
+                        <a class="dropdown-item" href="{% url 'videos_youtube' %}">Videos de YouTube</a>
+                        <a class="dropdown-item" href="{% url 'fotos_entrenando' %}">Fotos Entrenando</a>
+                        <a class="dropdown-item" href="{% url 'videos_entrenando' %}">Videos Entrenando</a>
+                    </div>
+                </li>
+                {% if user.is_authenticated %}
+                <!-- Opciones del Usuario -->
+                <li class="nav-item dropdown">
+                    <a href="#" class="nav-link dropdown-toggle" id="userOptionsDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Opciones del Usuario
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="userOptionsDropdown">
+                        <a class="dropdown-item" href="{% url 'update_profile' %}">Modificar perfil</a>
+                        <!-- <a class="dropdown-item" href="#">Cambiar foto</a> -->
+                        <a class="dropdown-item" href="{% url 'seleccionar_actividad' %}">Elegir horarios</a>
+                        <a class="dropdown-item" href="{% url 'cuota_view' %}">Cuota</a>
+                        {% if user.is_superuser %}
+                        <a class="dropdown-item" href="{% url 'cuota_admin' %}">Cuota admin (modificar)</a>
+                        {% for cuota in cuotas %}
+                        <p class="dropdown-item">Cuota ID: {{ cuota.pk }}</p>
+                        <a class="dropdown-item" href="{% url 'cuota_edit' pk=cuota.pk %}">Editar cuota</a>
+                        {% endfor %}
+                        {% endif %}
+                        <a class="dropdown-item" href="{% url 'perfil' %}">Perfil del Usuario</a>
+                        {% if user.is_superuser %}
+                        <a class="dropdown-item" href="{% url 'lista_usuarios' %}">Lista de Usuarios</a>
+                        <a class="dropdown-item" href="{% url 'assign_group' %}">Asignar rutinas</a>
+                        {% endif %}
+                        {% if user.is_authenticated %}
+                        <a class="dropdown-item" href="{% url 'ver_rutina_especial' %}">Rutina Personalizada</a>
+                        {% endif %}
+                    </div>
+                </li>
+                <!-- Usuario y Cerrar Sesión -->
+                <li class="nav-item">
+                    <a href="#" class="nav-link smoothScroll">{{ user.username }}</a>
+                    {% if user.userprofile.profile_image %}
+                    <img src="{{ user.userprofile.profile_image.url }}" alt="Profile Image" id="user-profile-image">
+                    {% else %}
+                    <img src="{% static 'miembros/img/furia-3.jpg' %}" alt="Imagen de perfil predeterminada" id="user-profile-image">
+                    {% endif %}
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link smoothScroll" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Cerrar sesión</a>
+                    <form id="logout-form" action="{% url 'logout' %}" method="post" style="display: none;">
+                        {% csrf_token %}
+                        <button type="submit">Logout</button>
+                    </form>
+                </li>
+                {% else %}
+                <!-- Iniciar Sesión y Registrarse -->
+                <li class="nav-item">
+                    <a href="{% url 'login' %}" class="nav-link smoothScroll">Iniciar sesión</a>
+                </li>
+                <li class="nav-item">
+                    <a href="{% url 'registro' %}" class="nav-link smoothScroll">Registrarse</a>
+                </li>
+                {% endif %}
+                <!-- Admin -->
+                <li class="nav-item">
+                    <a href="{% url 'admin:index' %}" class="nav-link smoothScroll admin-button">Admin</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+            <!-- Iconos sociales -->
+            <ul class="social-icon ml-lg-3">
+                <li><a href="https://www.facebook.com/fabricio.gutierrez.92" class="fa fa-facebook"></a></li>
+                <li><a href="#" class="fa fa-twitter"></a></li>
+                <li><a href="https://www.instagram.com/saiyan_box/" class="fa fa-instagram"></a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
+<!-- fin del menu var -->
+
+
+
+
+    <!-- Icono flotante -->
+    <div id="floating-icon" onclick="window.location.href='{% url 'ubicacion' %}'">
+        <img src="{% static 'miembros/img/logo_saiyan.ico' %}" alt="Ubicación">
+        <span>Nos ubicamos en</span>
+    </div>
+
+
+
+
+    <!-- HERO -->
+<section class="hero d-flex flex-column justify-content-center align-items-center" id="home">
+
+    <div class="bg-overlay"></div>
+
+           <div class="container">
+                <div class="row">
+
+                     <div class="col-lg-8 col-md-10 mx-auto col-12">
+                          <div class="hero-text mt-5 text-center">
+
+                                <h6 data-aos="fade-up" data-aos-delay="300">tu 2do hogar, tu 2da familia!</h6>
+
+                                <h1 class="text-white" data-aos="fade-up" data-aos-delay="500">Desafía tu potencial, conquista tus metas. Saiyan Box</h1>
+
+                                <a href="#feature" class="btn custom-btn mt-3" data-aos="fade-up" data-aos-delay="600">Get started</a>
+
+                                <a href="#about" class="btn custom-btn bordered mt-3" data-aos="fade-up" data-aos-delay="700">learn more</a>
+                               
+                          </div>
+                     </div>
+
+                </div>
+           </div>
+ </section>
+
+
+
+    {% block contenido %}
+    {% endblock %}
+
+
+<!-- BMI Calculation Start -->
+<div class="container-fluid position-relative bmi my-5">
+    <div class="container">
+        <div class="row px-3 align-items-stretch">
+            <div class="col-md-6 bg-imc d-flex align-items-center justify-content-center">
+                <div class="text-container">
+                    <h4 class="text-primary">Índice de masa corporal</h4>
+                    <h4 class="display-4 text-white font-weight-bold mb-4">¿Qué es el IMC?</h4>
+                    <p class="m-0 text-white">El índice de masa corporal (IMC) es una medida que se utiliza para determinar si una persona tiene un peso saludable en relación con su altura.</p>
+                </div>
+            </div>
+            <div class="col-md-6 bg-secondary py-5 d-flex align-items-center justify-content-center">
+                <div class="py-5 px-3 w-100">
+                    <h1 class="mb-4 text-white">Calcula tu IMC</h1>
+                    <form id="bmiForm">
+                        <div class="form-row">
+                            <div class="col form-group">
+                                <input type="number" id="weight" class="form-control form-control-lg bg-dark text-white" placeholder="Peso (KG)" required>
+                            </div>
+                            <div class="col form-group">
+                                <input type="number" id="height" class="form-control form-control-lg bg-dark text-white" placeholder="Altura (CM)" required>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="col form-group">
+                                <input type="number" id="age" class="form-control form-control-lg bg-dark text-white" placeholder="Edad" required>
+                            </div>
+                            <div class="col form-group">
+                                <select id="gender" class="custom-select custom-select-lg bg-dark text-muted" required>
+                                    <option value="">Género</option>
+                                    <option value="Masculino">Masculino</option>
+                                    <option value="Femenino">Femenino</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="col">
+                                <button type="button" class="btn btn-lg btn-block btn-dark border-light" onclick="calculateBMI()">Calcular ahora</button>
+                            </div>
+                        </div>
+                        <div id="bmiResult" class="text-white mt-3"></div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- fin de tabla imc -->
+
+<!-- Tablas de IMC -->
+<div class="container">
+    <div class="row">
+        <div class="col-md-6">
+            <div class="table-wrapper">
+                <h2 class="text-center">Tabla de IMC para Hombres</h2>
+                <table class="table table-bordered mt-4">
+                    <thead>
+                        <tr>
+                            <th scope="col">IMC</th>
+                            <th scope="col">Clasificación</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>&lt; 20</td>
+                            <td>Bajo peso</td>
+                        </tr>
+                        <tr>
+                            <td>20 - 24,9</td>
+                            <td>Peso normal</td>
+                        </tr>
+                        <tr>
+                            <td>25 - 29,9</td>
+                            <td>Sobrepeso</td>
+                        </tr>
+                        <tr>
+                            <td>30 - 34,9</td>
+                            <td>Obesidad grado I</td>
+                        </tr>
+                        <tr>
+                            <td>35 - 39,9</td>
+                            <td>Obesidad grado II</td>
+                        </tr>
+                        <tr>
+                            <td>&gt;= 40</td>
+                            <td>Obesidad grado III (mórbida)</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="table-wrapper">
+                <h2 class="text-center">Tabla de IMC para Mujeres</h2>
+                <table class="table table-bordered mt-4">
+                    <thead>
+                        <tr>
+                            <th scope="col">IMC</th>
+                            <th scope="col">Clasificación</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>&lt; 19</td>
+                            <td>Bajo peso</td>
+                        </tr>
+                        <tr>
+                            <td>19 - 23</td>
+                            <td>Peso normal</td>
+                        </tr>
+                        <tr>
+                            <td>24 - 27</td>
+                            <td>Sobrepeso</td>
+                        </tr>
+                        <tr>
+                            <td>27 - 32</td>
+                            <td>Obesidad grado I</td>
+                        </tr>
+                        <tr>
+                            <td>32 - 36</td>
+                            <td>Obesidad grado II</td>
+                        </tr>
+                        <tr>
+                            <td>&gt;= 40</td>
+                            <td>Obesidad grado III (mórbida)</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Estilos personalizados -->
+<style>
+    .bmi .bg-secondary {
+        background-color: #6c757d !important;
+    }
+
+    .table {
+        color: black;
+    }
+
+    .table-wrapper {
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .table-wrapper h2 {
+        margin-top: 20px;
+    }
+</style>
+
+<!-- Script para calcular el IMC -->
+<script>
+    function calculateBMI() {
+        var weight = parseFloat(document.getElementById('weight').value);
+        var height = parseFloat(document.getElementById('height').value) / 100; // Convertir a metros
+
+        if (!isNaN(weight) && !isNaN(height) && height > 0) {
+            var bmi = weight / (height * height);
+            document.getElementById('bmiResult').innerHTML = 'Tu IMC es: ' + bmi.toFixed(2);
+        } else {
+            document.getElementById('bmiResult').innerHTML = 'Por favor, ingrese valores válidos';
+        }
+    }
+</script>
+
+
+
+
+     <!-- CONTACT -->
+     <section class="contact section" id="contact">
+        <div class="container">
+            <div class="row">
+
+                  <!-- <div class="ml-auto col-lg-5 col-md-6 col-12">
+                      <h2 class="mb-4 pb-2" data-aos="fade-up" data-aos-delay="200">Feel free to ask anything</h2>
+
+                      <form action="#" method="post" class="contact-form webform" data-aos="fade-up" data-aos-delay="400" role="form">
+                          <input type="text" class="form-control" name="cf-name" placeholder="Name">
+
+                          <input type="email" class="form-control" name="cf-email" placeholder="Email">
+
+                          <textarea class="form-control" rows="5" name="cf-message" placeholder="Message"></textarea>
+
+                          <button type="submit" class="form-control" id="submit-button" name="submit">Send Message</button>
+                      </form>
+                  </div> -->
+
+                  <div class="mx-auto mt-4 mt-lg-0 mt-md-0 col-lg-5 col-md-6 col-12">
+                      <h2 class="mb-4" data-aos="fade-up" data-aos-delay="600">Nuestra ubicación <span>en el mapa</span></h2>
+
+                      <p data-aos="fade-up" data-aos-delay="800"><i class="fa fa-map-marker mr-1"></i> 29 entre 20 y 22</p>
+
+                      <!-- mapa-->
+<div class="google-map" data-aos="fade-up" data-aos-delay="600">
+    <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d3561.9627280008267!2d-60.442001000000005!3d-26.777458!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x94412d0212c96917%3A0xaed97f5b27c8e623!2zUm9kcsOtZ3VleiBQZcOxYSA5NTYsIEgzNzAwQkNUIFPDoWVueiBQZcOxYSwgQ2hhY28!5e0!3m2!1ses-419!2sar!4v1719677876072!5m2!1ses-419!2sar" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+</div>
+
+
+                </div>
+                    
+            </div>
+        </div>
+    </section>
+
+
+
+
+
+
+   <!-- FOOTER -->
+   <footer class="site-footer">
+        <div class="container">
+             <div class="row">
+
+                  <div class="ml-auto col-lg-4 col-md-5">
+                      <p class="copyright-text">Copyright &copy; Baldani(por la ficha).
+                      
+                      <br>Design: <a href="https://www.tooplate.com">Tooplate</a></p>
+                  </div>
+
+                  <div class="d-flex justify-content-center mx-auto col-lg-5 col-md-7 col-12">
+                      <p class="mr-4">
+                          <i class="fa fa-envelope-o mr-1"></i>
+                          <a href="#">fabricio@gmail.com</a>
+                      </p>
+
+                      <p><i class="fa fa-phone mr-1"></i> 010-020-0840</p>
+                  </div>
+                  
+             </div>
+        </div>
+   </footer>
+
+  <!-- Modal -->
+  <div class="modal fade" id="membershipForm" tabindex="-1" role="dialog" aria-labelledby="membershipFormLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+
+      <div class="modal-content">
+        <div class="modal-header">
+
+          <h2 class="modal-title" id="membershipFormLabel">Membership Form</h2>
+
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+
+        <div class="modal-body">
+          <form class="membership-form webform" role="form">
+              <input type="text" class="form-control" name="cf-name" placeholder="John Doe">
+
+              <input type="email" class="form-control" name="cf-email" placeholder="Johndoe@gmail.com">
+
+              <input type="tel" class="form-control" name="cf-phone" placeholder="123-456-7890" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" required>
+
+              <textarea class="form-control" rows="3" name="cf-message" placeholder="Additional Message"></textarea>
+
+              <button type="submit" class="form-control" id="submit-button" name="submit">Submit Button</button>
+
+              <div class="custom-control custom-checkbox">
+                  <input type="checkbox" class="custom-control-input" id="signup-agree">
+                  <label class="custom-control-label text-small text-muted" for="signup-agree">I agree to the <a href="#">Terms &amp;Conditions</a>
+                  </label>
+              </div>
+          </form>
+        </div>
+
+ 
+
+        <div class="modal-footer"></div>
+
+      </div>
+    </div>
+  </div>
+
+<!-- Footer Start -->
+<div class="footer container-fluid mt-5 py-5 px-sm-3 px-md-5 text-white" id="contacto" style="background-image: url('static/miembros/img/fondo4.jpg'); max-width: 100%; max-height: 60%; background-size: cover; background-position: center;">
+    <div class="row pt-5">
+        <div class="col-lg-3 col-md-6 mb-5">
+            <h4 class="text-primary mb-4">Ponerse en contacto</h4>
+            <p><i class="fa fa-map-marker-alt mr-2"></i>123 Street, New York, USA</p>
+            <p><i class="fa fa-phone-alt mr-2"></i>+012 345 67890</p>
+            <p><i class="fa fa-envelope mr-2"></i>info@example.com</p>
+            <div class="d-flex justify-content-start mt-4">
+                <a class="btn btn-outline-light rounded-circle text-center mr-2 px-0 social-link" style="width: 40px; height: 40px;" href="#"><i class="fab fa-twitter"></i></a>
+                <a class="btn btn-outline-light rounded-circle text-center mr-2 px-0 social-link" style="width: 40px; height: 40px;" href="https://www.facebook.com/fabricio.gutierrez.92"><i class="fab fa-facebook-f"></i></a>
+                <a class="btn btn-outline-light rounded-circle text-center mr-2 px-0 social-link" style="width: 40px; height: 40px;" href="#"><i class="fab fa-linkedin-in"></i></a>
+                <a class="btn btn-outline-light rounded-circle text-center mr-2 px-0 social-link" style="width: 40px; height: 40px;" href="https://www.instagram.com/saiyan_box/"><i class="fab fa-instagram"></i></a>
+            </div>
+        </div>
+        <div class="col-lg-3 col-md-6 mb-5">
+            <h4 class="text-primary mb-4">Enlaces rápidos</h4>
+            <div class="d-flex flex-column justify-content-start">
+                <a class="footer-link text-white mb-2" href="#"><i class="fa fa-angle-right mr-2"></i>Home</a>
+                <a class="footer-link text-white mb-2" href="#"><i class="fa fa-angle-right mr-2"></i>Sobre nosotros</a>
+                <a class="footer-link text-white mb-2" href="#"><i class="fa fa-angle-right mr-2"></i>Nuestras características</a>
+                <a class="footer-link text-white mb-2" href="#"><i class="fa fa-angle-right mr-2"></i>Clases</a>
+                <a class="footer-link text-white" href="#"><i class="fa fa-angle-right mr-2"></i>Contacta con nosotros</a>
+            </div>
+        </div>
+        <div class="col-lg-3 col-md-6 mb-5">
+            <h4 class="text-primary mb-4">Enlaces populares</h4>
+            <div class="d-flex flex-column justify-content-start">
+                <a class="footer-link text-white mb-2" href="#"><i class="fa fa-angle-right mr-2"></i>Home</a>
+                <a class="footer-link text-white mb-2" href="#"><i class="fa fa-angle-right mr-2"></i>Sobre nosotros</a>
+                <a class="footer-link text-white mb-2" href="#"><i class="fa fa-angle-right mr-2"></i>Nuestras características</a>
+                <a class="footer-link text-white mb-2" href="#"><i class="fa fa-angle-right mr-2"></i>Clases</a>
+                <a class="footer-link text-white" href="#"><i class="fa fa-angle-right mr-2"></i>Contacta con nosotros</a>
+            </div>
+        </div>
+        <div class="col-lg-3 col-md-6 mb-5">
+            <h4 class="text-primary mb-4">Horario de apertura</h4>
+            <h5 class="text-white">Lunes - Viernes</h5>
+            <p>8.00 AM - 8.00 PM</p>
+            <h5 class="text-white">Sabado - domingo</h5>
+            <p>2.00 PM - 8.00 PM</p>
+        </div>
+    </div>
+    <div class="container border-top border-dark pt-5">
+        <p class="m-0 text-center text-white">
+            &copy; <a class="text-white font-weight-bold footer-link" href="#">Saiyan Box</a>. All Rights Reserved. Designed by
+            <a class="text-white font-weight-bold footer-link" href="https://htmlcodex.com">Baldani (por la ficha).</a>
+        </p>
+    </div>
+</div>
+<!-- Footer End -->
+
+<!-- Custom Styles -->
+<style>
+    .footer-link {
+        transition: color 0.3s, transform 0.3s;
+    }
+    
+    .footer-link:hover {
+        color: #ff000d; /* Cambiar a un color dorado o cualquier otro color */
+        transform: scale(1.4); /* Aumentar un poco el tamaño */
+    }
+
+    .social-link {
+        transition: color 0.3s, transform 0.3s;
+    }
+
+    .social-link:hover {
+        color: #ffd700; /* Cambiar a un color dorado o cualquier otro color */
+        transform: scale(1.4); /* Aumentar un poco el tamaño */
+    }
+
+    .footer h4, .footer h5, .footer p, .footer a {
+        color: rgba(186, 212, 35, 0.8);
+    }
+
+    .footer h4 {
+        font-weight: bold;
+    }
+</style>
+<!-- fin de star footer -->
+
+
+    <!-- Back to Top -->
+    <a href="#" class="btn btn-outline-primary back-to-top"><i class="fa fa-angle-double-up"></i></a>
+
+
+
+
+
+
+   <!-- SCRIPTS -->
+
+   <script>
+    $(document).ready(function () {
+        $('.dropdown-toggle').click(function (e) {
+            e.preventDefault();
+            var $el = $(this).siblings('.dropdown-menu');
+            var $parent = $(this).parent();
+            if ($parent.hasClass('show')) {
+                $parent.removeClass('show');
+                $el.removeClass('show');
+            } else {
+                $('.navbar .dropdown').removeClass('show');
+                $('.navbar .dropdown-menu').removeClass('show');
+                $parent.addClass('show');
+                $el.addClass('show');
+            }
+        });
+
+        $(document).click(function (e) {
+            if (!$(e.target).closest('.navbar').length) {
+                $('.navbar .dropdown').removeClass('show');
+                $('.navbar .dropdown-menu').removeClass('show');
+            }
+        });
+    });
+</script>
+  
+<script src="{% static 'miembros/js/jquery.min.js' %}"></script>
+<script src="{% static 'miembros/js/bootstrap.min.js' %}"></script>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+
+<script src="{% static 'miembros/js/aos.js' %}"></script>
+<script src="{% static 'miembros/js/smoothscroll.js' %}"></script>
+<script src="{% static 'miembros/js/custom.js' %}"></script>
+<script>
+    AOS.init();
+</script>
+{% block js %}{% endblock %}
+</body>
+</html>
